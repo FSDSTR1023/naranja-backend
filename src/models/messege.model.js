@@ -1,0 +1,46 @@
+import mongoose from 'mongoose'
+
+const messageSchema = new mongoose.Schema(
+  {
+    body: {
+      type: String,
+      required: true,
+      trim: true,
+      minlenght: 1,
+      maxlenght: 25,
+    },
+    sendUser: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+    },
+    destUser: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+    },
+    group: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Group',
+    },
+    deletedAt: {
+      type: Date,
+      default: null,
+    },
+    image: {
+      type: String,
+      trim: true,
+    },
+    video: {
+      type: String,
+      trim: true,
+    },
+    adjunto: {
+      type: String,
+      trim: true,
+    },
+  },
+  {
+    timestamps: true,
+  }
+)
+
+export default mongoose.model('Message', messageSchema)

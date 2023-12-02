@@ -11,6 +11,10 @@
     "rules": {
         "singleQuote": true,
         "useTabs": true,
-        "indent": 2
+        "indent": 2,
+        "semi": [
+            "off",
+            "never"
+        ]
     }
 }
