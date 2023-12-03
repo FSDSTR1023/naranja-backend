@@ -5,8 +5,9 @@ import cors from 'cors'
 import bodyParser from 'body-parser'
 import { connectDB } from './db.js'
 import 'dotenv/config'
+import userRoutes from './routes/user.routes.js'
 
-const port = process.env.PORT || 4000
+const port = process.env.PORT || 3000
 const app = express()
 app.use(morgan('dev'))
 app.use(express.json())
@@ -18,6 +19,7 @@ app.use(
     credentials: true,
   })
 )
+app.use('/', userRoutes)
 
 app.get('/helper', (req, res) => {
   res.status(200).send('helper')

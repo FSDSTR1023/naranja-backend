@@ -18,6 +18,7 @@ const userSchema = new mongoose.Schema(
     },
     email: {
       type: String,
+      unique: true,
       required: true,
       trim: true,
       minlenght: 3,
@@ -45,6 +46,10 @@ const userSchema = new mongoose.Schema(
     deletedAt: {
       type: Date,
       default: null,
+    },
+    isOnline: {
+      type: String,
+      default: 'offline',
     },
   },
   {
