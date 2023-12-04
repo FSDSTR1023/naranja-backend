@@ -12,10 +12,12 @@ const messageSchema = new mongoose.Schema(
     sendUser: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
+      required: true,
     },
     destUser: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
+      required: true,
     },
     group: {
       type: mongoose.Schema.Types.ObjectId,
@@ -33,7 +35,7 @@ const messageSchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
-    adjunto: {
+    fileAtt: {
       type: String,
       trim: true,
     },

@@ -43,7 +43,7 @@ export const verifyUser = async (req, res) => {
       return res.status(400).send('User not found').redirect('/register')
     }
 
-    res.status(200).json(userFound)
+    res.status(200).json(userFound).redirect('/login')
   } catch (error) {
     console.error(error, '<--- ERROR')
   }
@@ -65,7 +65,7 @@ export const logInUser = async (req, res) => {
     }
     const tokenAccess = await generateTokenAccess({ _id: userFound._id })
     res.cookie('token', tokenAccess)
-    res.json(userFound)
+    res.status(200).json(userFound)
   } catch (error) {
     console.error(error, '<--- ERROR')
   }
@@ -92,7 +92,7 @@ export const editProfileUser = async (req, res) => {
   try {
     const userUpdate = await User.findByIdAndUpdate(
       { _id },
-      { password, role, avatar, isOnline },
+      { password, role, avatar, isOnline }, // <-- si modificamos el password hay que pasarlo por el bcrypt para encriptarlo
       { new: true }
     )
     if (!userUpdate) {

@@ -36,7 +36,7 @@ const taskSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Group',
     },
-    imagen: {
+    image: {
       type: String,
       trim: true,
     },
@@ -44,7 +44,7 @@ const taskSchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
-    adjunto: {
+    fileAtt: {
       type: String,
       trim: true,
     },
