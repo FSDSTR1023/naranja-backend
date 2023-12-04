@@ -16,7 +16,7 @@ const groupSchema = new mongoose.Schema(
       minlenght: 3,
       maxlenght: 250,
     },
-    creatUser: {
+    ownerUser: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
     },
