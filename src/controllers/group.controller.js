@@ -29,13 +29,13 @@ export const getAllGroups = async (req, res) => {
 
 export const createNewGroup = async (req, res) => {
   const { name, description, ownerUser, members } = req.body
-  const newMembers = [...members, ownerUser]
+
   try {
     const newGroup = await new Group({
       name,
       description,
       ownerUser: ownerUser,
-      members: [...newMembers],
+      members: members,
     })
     const groupSaved = await newGroup.save()
     if (!groupSaved) {
