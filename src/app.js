@@ -7,6 +7,7 @@ import { connectDB } from './db.js'
 import 'dotenv/config'
 import userRoutes from './routes/user.routes.js'
 import taskRoutes from './routes/task.routes.js'
+import groupRoutes from './routes/group.routes.js'
 
 const port = process.env.PORT || 4000
 const app = express()
@@ -22,6 +23,7 @@ app.use(
 )
 app.use('/', userRoutes)
 app.use('/task', taskRoutes)
+app.use('/group', groupRoutes)
 
 app.get('/helper', (req, res) => {
   res.status(200).send('helper')
