@@ -6,6 +6,7 @@ import bodyParser from 'body-parser'
 import { connectDB } from './db.js'
 import 'dotenv/config'
 import userRoutes from './routes/user.routes.js'
+import taskRoutes from './routes/task.routes.js'
 
 const port = process.env.PORT || 4000
 const app = express()
@@ -20,6 +21,7 @@ app.use(
   })
 )
 app.use('/', userRoutes)
+app.use('/task', taskRoutes)
 
 app.get('/helper', (req, res) => {
   res.status(200).send('helper')

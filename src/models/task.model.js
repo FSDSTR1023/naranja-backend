@@ -23,10 +23,12 @@ const taskSchema = new mongoose.Schema(
     dateStart: {
       type: Date,
       required: true,
+      default: Date.now(),
     },
     dateEnd: {
       type: Date,
       required: true,
+      default: Date.now(),
     },
     user: {
       type: mongoose.Schema.Types.ObjectId,
@@ -36,15 +38,15 @@ const taskSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Group',
     },
-    image: {
+    imageAt: {
       type: String,
       trim: true,
     },
-    video: {
+    videoAt: {
       type: String,
       trim: true,
     },
-    fileAtt: {
+    fileAt: {
       type: String,
       trim: true,
     },
