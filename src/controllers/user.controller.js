@@ -113,3 +113,5 @@ export const getAllUsers = async (req, res) => {
     console.error(error, '<--- ERROR')
   }
 }
+
+// <--- Nos falta verificar el token despues de hacer el login
