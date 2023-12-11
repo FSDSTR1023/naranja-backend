@@ -1,6 +1,6 @@
 # TODO-MESSENGER-GROUP-MANAGER (TASKTALK)
 
-## Descripción General del Proyecto
+## Descripción General del Proyecto(TLDR)
 Este proyecto es una aplicación de gestión de tareas y mensajería grupal. Permite a los usuarios registrarse, crear tareas, asignarse entre sí y unirse a grupos para comunicarse a través de mensajes grupales o individuales (ya sea texto, vídeo, archivo o imágenes). El proyecto está en desarrollo, con la funcionalidad del chat y la mayoría del frontend pendientes de implementación.
 
 ## Estado del Proyecto
@@ -38,11 +38,11 @@ En desarrollo.
 - [Googleapis](https://googleapis.dev/nodejs/googleapis/latest/docs/classes/Docs.html) para la integración con servicios de Google (pendiente de detalles específicos).
 - [Cloudinary](https://cloudinary.com/documentation) para el almacenamiento y gestión de archivos multimedia en la nube.
 - [ESLint](https://eslint.org/docs/latest/) para el linting del código.
-- [Prettier](https://eslint.org/docs/latest/) para el formateo consistente del código.
+- [Prettier](https://prettier.io) para el formateo consistente del código.
 
 ## Descripción extensa del proyecto, dirección del mismo y objetivos a lograr
 
-# TaskTalk
+# TaskTalk(Nombre provisional)
 
 TaskTalk aspira a convertirse en una aplicación diseñada para el ámbito profesional y educativo. Se espera que su implementación en estos campos agilice y optimice tanto el trabajo como la comunicación en grupo, ya sea en entornos laborales o académicos. Además, se vislumbran posibles usos de la aplicación a nivel P2P o individual, facilitando la creación de tareas y listas para cualquier propósito.
 
@@ -54,8 +54,4 @@ En la versión actual del proyecto, aunque dista de alcanzar la visión completa
 3. Configura las variables de entorno en un archivo `.env`.
 4. Ejecuta `npm run dev` para iniciar el servidor en modo de desarrollo con nodemon.
 
-**Nota:** El proyecto está en desarrollo, por lo que la funcionalidad de mensajería al completo no existe en esta versión del proyecto, de igual manera, el frontend está en una
-
-
-
-
+**Nota:** El proyecto está en desarrollo, por lo que la funcionalidad de mensajería al completo no existe en esta versión del proyecto, de igual manera, el frontend está en una fase muy primitiva y queda será mejorado enormemente.
