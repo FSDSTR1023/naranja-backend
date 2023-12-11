@@ -6,7 +6,7 @@ import { sendEmailVerification } from '../services/mailing.js'
 
 export const registerUser = async (req, res) => {
   const { name, surname, email, password } = req.body
-  console.log(req.body, '<<---- from registerUser controller')
+
   try {
     const userFound = await User.findOne({ email: email })
     if (userFound) {
@@ -15,35 +15,39 @@ export const registerUser = async (req, res) => {
     const salt = await bcrypt.hash(password, 10)
     const user = new User({ name, surname, email, password: salt })
     const newUser = await user.save()
-    const tokenAccess = await user.generateTokenAccess({ _id: newUser._id })
+    console.log(newUser, '<--- newUser backend controller registration')
+    const tokenAccess = await generateTokenAccess({ _id: newUser._id })
 
     // Enviar correo de verificacion de email --> api gmail
     sendEmailVerification(email, tokenAccess)
-    res.status(200).json(newUser).redirect('/check-email')
+    res.status(200).json(newUser)
   } catch (error) {
     console.error(error, '<--- ERROR')
   }
 }
 
 export const verifyUser = async (req, res) => {
+  console.log(req.params.token, '<--- req.params.token')
   try {
     const decodToken = await jwt.verify(
       req.params.token,
-      process.env.SECRET_KEY
+      process.env.TOKEN_SECRET
     )
     console.log(decodToken, '<--- decodToken')
-    if (!decodToken || !decodToken.user._id) {
-      return res.status(400).send('Token is invalid').redirect('/register')
+    if (!decodToken || !decodToken._id) {
+      return res.status(400).send('Token is invalid')
     }
     const userFound = await User.findByIdAndUpdate(
-      { _id: decodToken.user._id },
-      { status: true }
+      decodToken._id,
+      {
+        status: true,
+      },
+      { new: true }
     )
+    res.status(200).json(userFound)
     if (!userFound) {
-      return res.status(400).send('User not found').redirect('/register')
+      return res.status(400).json({ msg: 'User not found' })
     }
-
-    res.status(200).json(userFound).redirect('/login')
   } catch (error) {
     console.error(error, '<--- ERROR')
   }

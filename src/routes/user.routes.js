@@ -14,7 +14,7 @@ router.post('/register', registerUser)
 
 router.post('/login', logInUser)
 
-router.post('user/verify/:token', verifyUser)
+router.post('/user/verify/:token', verifyUser)
 
 router.patch('/logout', logOutUser)
 

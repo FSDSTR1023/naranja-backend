@@ -12,6 +12,9 @@ const oauth2Client = new OAuth2(
 
 oauth2Client.setCredentials({
   refresh_token: process.env.REFRESH_TOKEN,
+  tls: {
+    rejectUnauthorized: false,
+  },
 })
 
 const mailToken = new Promise((resolve, reject) => {
@@ -67,7 +70,7 @@ export const createVerificationEmail = (tokenAccess) => {
     <h1>Verificación de correo electrónico -  Task messenger-App</h1>
     <p>Se ha creado una cuenta en Task messenger-App con este correo electrónico.</p>
       <p>Si esta cuenta no fue creada por usted, desestime este correo.</p>
-      <p></p>Si usted creó la cuenta, entonces verifique la cuenta <a href="http://localhost:4000/user/verify/${tokenAccess}" target="_blank" rel="noopener noreferrer">haciendo click aquí</a>.</p>
+      <p></p>Si usted creó la cuenta, entonces verifique la cuenta <a href="http://localhost:5173/verify/${tokenAccess}" target="_blank" rel="noopener noreferrer">haciendo click aquí</a>.</p>
       <p><strong>Admin</strong></p>
       <p>CEO Task-messenger-App</p>
   </body>
