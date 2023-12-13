@@ -52,6 +52,69 @@ En desarrollo.
 - [ESLint](https://eslint.org/docs/latest/) para el linting del código.
 - [Prettier](https://prettier.io) para el formateo consistente del código.
 
+# Arquitectura del Proyecto TaskTalk y Relaciones entre Entidades
+
+## Arquitectura del Proyecto    
+
+TaskTalk se construye como una aplicación web utilizando la pila MERN (MongoDB, Express.js, React, Node.js) para sus componentes de backend y frontend. El proyecto sigue una arquitectura modular y escalable para garantizar la mantenibilidad y extensibilidad.
+
+### Arquitectura del Backend
+
+- **Servidor:** Express.js se utiliza como el marco del servidor para manejar las solicitudes y respuestas HTTP.
+
+- **Base de Datos:** MongoDB es la base de datos NoSQL elegida, y Mongoose se utiliza como un ODM (Object Document Mapper) para modelar e interactuar con la base de datos.
+
+- **Autenticación:** Se emplean Tokens de Web JSON (JWT) para la autenticación del usuario. Bcrypt.js se utiliza para el hash de las contraseñas de usuario.
+
+- **Middleware:** Diversos middleware, como Morgan para el registro, Cookie-parser para el manejo de cookies y CORS para el intercambio de recursos entre dominios, se integran en la aplicación Express.js.
+
+- **Comunicación en Tiempo Real (Pendiente):** Socket.io está planeado para implementar la funcionalidad de mensajería en tiempo real.
+
+- **Verificación de Correo Electrónico:** Nodemailer se utiliza para enviar correos electrónicos de verificación durante el proceso de registro del usuario.
+
+- **Almacenamiento en la Nube:** Cloudinary está implementado para gestionar archivos multimedia en la nube.
+
+### Arquitectura del Frontend
+
+- **Framework:** React.js se elige como la biblioteca frontend para construir interfaces de usuario.
+
+- **Gestión del Estado:** El proyecto utiliza una combinación del estado local de React y la API de contexto para gestionar el estado de la aplicación.
+
+- **Enrutamiento:** React Router se utiliza para manejar la navegación dentro de la aplicación.
+
+- **Solicitudes a la API:** Axios se utiliza para realizar solicitudes HTTP a la API del backend.
+
+- **Manejo de Formularios:** React Hook Form se utiliza para el manejo eficiente y efectivo de formularios en los componentes de React.
+
+## Relaciones entre Entidades
+
+### Usuario
+
+- Un Usuario puede estar asociado con muchas Tareas.
+- Un Usuario puede ser miembro de varios Grupos.
+- Un Usuario puede enviar y recibir Mensajes dentro de un Grupo, ya sea de 2 o más miembros.
+- Cada Usuario tiene un token de autenticación único.
+
+### Tarea
+
+- Una Tarea pertenece a un Usuario (creador/asignatario).
+- Una Tarea puede estar asociada con varios Usuarios (asignatarios).
+- Las Tareas pueden pertenecer a uno o más Grupos.
+
+### Grupo
+
+- Un Grupo puede tener múltiples Usuarios como miembros.
+- Un Grupo puede tener múltiples Tareas asociadas.
+- Los Mensajes se intercambian entre Usuarios dentro de un Grupo.
+
+### Mensaje
+
+- Un Mensaje está asociado con un Grupo específico.
+- Los Mensajes pueden incluir texto, video, archivos o imágenes.
+- Cada Mensaje es enviado por un Usuario específico dentro del Grupo.
+
+Esta arquitectura y modelo de relaciones entre entidades proporcionan una base para construir la aplicación TaskTalk con características como la gestión de tareas, la comunicación grupal y la mensajería en tiempo real.
+
 ## Descripción extensa del proyecto, dirección del mismo y objetivos a lograr
 
 # TaskTalk(Nombre provisional)
