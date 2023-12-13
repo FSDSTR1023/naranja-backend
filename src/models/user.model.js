@@ -53,6 +53,12 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: 'offline',
     },
+    groups: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Group',
+      },
+    ],
   },
   {
     timestamps: true,
