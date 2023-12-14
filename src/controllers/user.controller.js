@@ -92,11 +92,12 @@ export const logOutUser = async (req, res) => {
 
 export const editProfileUser = async (req, res) => {
   const { _id, password, role, avatar, isOnline } = req.body
+  const newPassword = await bcrypt.hash(password, 10)
 
   try {
     const userUpdate = await User.findByIdAndUpdate(
       { _id },
-      { password, role, avatar, isOnline }, // <-- si modificamos el password hay que pasarlo por el bcrypt para encriptarlo
+      { password: newPassword, role, avatar, isOnline },
       { new: true }
     )
     if (!userUpdate) {
