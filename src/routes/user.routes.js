@@ -20,6 +20,6 @@ router.patch('/logout', logOutUser)
 
 router.put('/user/update', editProfileUser)
 
-router.get('/', getAllUsers) // <--- En el front hay que filtrar el log user
+router.get('/', getAllUsers)
 
 export default router
