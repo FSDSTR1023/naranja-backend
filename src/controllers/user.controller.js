@@ -91,13 +91,12 @@ export const logOutUser = async (req, res) => {
 }
 
 export const editProfileUser = async (req, res) => {
-  const { _id, password, role, avatar, isOnline } = req.body
-  const newPassword = await bcrypt.hash(password, 10)
+  const { _id, role, avatar, isOnline } = req.body
 
   try {
     const userUpdate = await User.findByIdAndUpdate(
       { _id },
-      { password: newPassword, role, avatar, isOnline },
+      { role, avatar, isOnline },
       { new: true }
     )
     if (!userUpdate) {
@@ -116,6 +115,25 @@ export const getAllUsers = async (req, res) => {
     res.status(200).json(users)
   } catch (error) {
     console.error(error, '<--- ERROR')
+  }
+}
+
+export const editUserPassword = async (req, res) => {
+  const { _id, password } = req.body
+  try {
+    const newPassword = await bcrypt.hash(password, 10)
+    const userFound = await User.findByIdAndUpdate(
+      { _id },
+      { password: newPassword },
+      { new: true }
+    )
+    if (!userFound) {
+      return res.status(400).send('User not found')
+    }
+    res.status(200).json(userFound)
+  } catch (error) {
+    console.error(error, '<--- ERROR')
+    res.status(400).send('User not found')
   }
 }
 

@@ -22,4 +22,6 @@ router.put('/user/update', editProfileUser)
 
 router.get('/', getAllUsers)
 
+router.put('/user/password', editUserPassword)
+
 export default router
