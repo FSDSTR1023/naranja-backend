@@ -95,7 +95,7 @@ export const editProfileUser = async (req, res) => {
 
   try {
     const userUpdate = await User.findByIdAndUpdate(
-      { _id },
+      _id,
       { role, avatar, isOnline },
       { new: true }
     )
@@ -121,10 +121,11 @@ export const getAllUsers = async (req, res) => {
 
 export const editUserPassword = async (req, res) => {
   const { _id, password } = req.body
+  console.log(req.body, '<--- req.body')
   try {
     const newPassword = await bcrypt.hash(password, 10)
     const userFound = await User.findByIdAndUpdate(
-      { _id },
+      _id,
       { password: newPassword },
       { new: true }
     )
