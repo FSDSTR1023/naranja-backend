@@ -5,6 +5,7 @@ import {
   verifyUser,
   logOutUser,
   editProfileUser,
+  editUserPassword,
   getAllUsers,
 } from '../controllers/user.controller.js'
 

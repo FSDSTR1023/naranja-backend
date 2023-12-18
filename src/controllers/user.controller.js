@@ -103,6 +103,7 @@ export const editProfileUser = async (req, res) => {
       console.log(userUpdate, '<--- userUpdate from editProfileUser controller')
       return res.status(400).send('User not found')
     }
+    console.log(userUpdate, '<--- userUpdate from editProfileUser controller')
     res.status(200).json(userUpdate)
   } catch (error) {
     console.error(error, '<--- ERROR')
