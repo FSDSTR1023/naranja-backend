@@ -8,6 +8,7 @@ import 'dotenv/config'
 import userRoutes from './routes/user.routes.js'
 import taskRoutes from './routes/task.routes.js'
 import groupRoutes from './routes/group.routes.js'
+import { Server } from 'socket.io'
 
 const port = process.env.PORT || 4000
 const app = express()
@@ -30,6 +31,31 @@ app.get('/helper', (req, res) => {
 })
 
 connectDB()
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`Server running on port ${port}`)
+})
+
+const io = new Server(server, {
+  cors: {
+    origin: '*',
+    withCredentials: true,
+    methods: ['GET', 'POST'],
+  },
+})
+
+io.on('connection', (socket) => {
+  console.log(`a user connected ${socket.id}`)
+
+  socket.on('join-room', (roomId) => {
+    socket.join(roomId)
+    console.log(`user joined room: ${roomId} with id: ${socket.id}`)
+  })
+
+  socket.on('send-message', (data) => {
+    socket.to(data.roomId).emit('receive-message', data)
+  })
+
+  socket.on('disconnect', () => {
+    console.log(`user disconnected ${socket.id}`)
+  })
 })
