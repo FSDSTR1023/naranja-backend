@@ -15,12 +15,20 @@ app.use(morgan('dev'))
 app.use(express.json())
 app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }))
 app.use(cookieParser())
-app.use(
-  cors({
-    origin: 'http://localhost:5173',
-    credentials: true,
-  })
-)
+
+const allowedOrigins = ['http://localhost:5173', 'http://127.0.0.1:5173']
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  },
+  credentials: true,
+}
+
+app.use(cors(corsOptions))
 app.use('/', userRoutes)
 app.use('/task', taskRoutes)
 app.use('/group', groupRoutes)
