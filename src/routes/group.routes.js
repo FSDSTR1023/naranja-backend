@@ -10,7 +10,8 @@ import {
 
 const router = Router()
 
-router.post('/groups', getAllGroups)
+// Use GET for retrieving all groups??
+router.get('/groups', getAllGroups)
 
 router.post('/', createNewGroup)
 
