@@ -6,17 +6,17 @@ export const getAllGroups = async (req, res) => {
   const { userId } = req.body
   console.log(userId, '<--- userId')
   try {
-    const groupsFound = await Group.find()
+    const groupsFound = await Group.find().populate('members')
 
-    console.log(groupsFound, '<--- groupsFound')
+    groupsFound.map((group) => console.log(group.members, '<--- groupsFound'))
     if (!groupsFound) {
       return res.status(400).send('Groups not found')
     }
     const filteredGroupsByMember = groupsFound.filter((group) => {
-      return group.members.includes(userId)
+      return group.members.some((member) => member._id.toString() === userId)
     })
     console.log(filteredGroupsByMember, '<--- filteredGroupsByMember')
-    if (!filteredGroupsByMember) {
+    if (filteredGroupsByMember.length === 0) {
       return res.status(400).send('Groups not found')
     }
 

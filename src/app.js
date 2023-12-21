@@ -8,6 +8,7 @@ import 'dotenv/config'
 import userRoutes from './routes/user.routes.js'
 import taskRoutes from './routes/task.routes.js'
 import groupRoutes from './routes/group.routes.js'
+import messageRoutes from './routes/message.routes.js'
 import { Server } from 'socket.io'
 
 const port = process.env.PORT || 4000
@@ -22,9 +23,11 @@ app.use(
     credentials: true,
   })
 )
+app.use('/uploads', express.static('uploads'))
 app.use('/', userRoutes)
 app.use('/task', taskRoutes)
 app.use('/group', groupRoutes)
+app.use('/messages', messageRoutes)
 
 app.get('/helper', (req, res) => {
   res.status(200).send('helper')
