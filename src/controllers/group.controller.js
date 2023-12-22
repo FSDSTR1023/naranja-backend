@@ -8,7 +8,6 @@ export const getAllGroups = async (req, res) => {
   try {
     const groupsFound = await Group.find().populate('members')
 
-    groupsFound.map((group) => console.log(group.members, '<--- groupsFound'))
     if (!groupsFound) {
       return res.status(400).send('Groups not found')
     }
