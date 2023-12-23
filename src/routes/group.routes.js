@@ -6,6 +6,7 @@ import {
   editGroup,
   deleteMember,
   deleteGroup,
+  getGroupByIdOrCreate,
 } from '../controllers/group.controller.js'
 
 const router = Router()
@@ -19,5 +20,7 @@ router.put('/:id', editGroup)
 router.patch('/:id', deleteMember)
 
 router.delete('/:id', deleteGroup)
+
+router.post('/group', getGroupByIdOrCreate)
 
 export default router
