@@ -2,6 +2,7 @@ import Message from '../models/messege.model.js'
 
 export const createMessageRequest = async (req, res) => {
   const { body, author, group, image, video, fileAtt, time } = req.body
+  console.log(req.body, '[<---- req.body- CREATE MESSAGE REQUEST]')
   try {
     const newMessage = await new Message({
       body,
@@ -10,7 +11,7 @@ export const createMessageRequest = async (req, res) => {
       image,
       video,
       fileAtt,
-      time,
+      time: new Date(),
     })
     const messageSaved = await newMessage.save()
     if (!messageSaved) {

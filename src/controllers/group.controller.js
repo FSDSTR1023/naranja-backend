@@ -1,7 +1,6 @@
 import Group from '../models/group.model.js'
 
 export const getAllGroups = async (req, res) => {
-  // <-- sera POST
   const { userId } = req.body
   console.log(req.body, '<--- req.body getAllGroups')
   try {
