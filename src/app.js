@@ -8,6 +8,7 @@ import 'dotenv/config'
 import userRoutes from './routes/user.routes.js'
 import taskRoutes from './routes/task.routes.js'
 import groupRoutes from './routes/group.routes.js'
+import messageRoutes from './routes/message.routes.js'
 import { Server } from 'socket.io'
 
 const port = process.env.PORT || 4000
