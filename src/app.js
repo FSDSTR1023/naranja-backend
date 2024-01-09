@@ -33,6 +33,7 @@ app.use(cors(corsOptions))
 app.use('/', userRoutes)
 app.use('/task', taskRoutes)
 app.use('/group', groupRoutes)
+app.use('/messages', messageRoutes)
 
 app.get('/helper', (req, res) => {
   res.status(200).send('helper')

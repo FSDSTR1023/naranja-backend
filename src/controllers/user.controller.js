@@ -54,9 +54,14 @@ export const verifyUser = async (req, res) => {
 }
 
 export const logInUser = async (req, res) => {
-  const { email, password } = req.body
+  const { email, password, isOnline } = req.body
   try {
-    const userFound = await User.findOne({ email })
+    const userFound = await User.findOneAndUpdate(
+      { email },
+      { isOnline },
+      { new: true }
+    )
+    console.log(userFound, '<--- userFound')
     if (!userFound) {
       return res.status(400).send('User not found')
     }

@@ -1,21 +1,19 @@
 import Group from '../models/group.model.js'
 
 export const getAllGroups = async (req, res) => {
-  // <-- sera POST
   const { userId } = req.body
-  console.log(userId, '<--- userId')
+  console.log(req.body, '<--- req.body getAllGroups')
   try {
-    const groupsFound = await Group.find()
+    const groupsFound = await Group.find().populate('members')
 
-    console.log(groupsFound, '<--- groupsFound')
     if (!groupsFound) {
       return res.status(400).send('Groups not found')
     }
     const filteredGroupsByMember = groupsFound.filter((group) => {
-      return group.members.includes(userId)
+      return group.members.some((member) => member._id.toString() === userId)
     })
     console.log(filteredGroupsByMember, '<--- filteredGroupsByMember')
-    if (!filteredGroupsByMember) {
+    if (filteredGroupsByMember.length === 0) {
       return res.status(400).send('Groups not found')
     }
 
@@ -23,6 +21,34 @@ export const getAllGroups = async (req, res) => {
   } catch (error) {
     console.error(error, '<--- ERROR')
     res.status(500).json({ msg: 'Internal server error' })
+  }
+}
+
+export const getGroupByIdOrCreate = async (req, res) => {
+  const { groupId, name, description, ownerUser, members } = req.body
+  try {
+    const groupFound = await Group.findOne({ id: groupId }).populate('members')
+    console.log(groupFound, '<--- groupFound')
+    if (!groupFound) {
+      const newGroup = await new Group({
+        id: groupId,
+        name: name,
+        description: description,
+        ownerUser: ownerUser,
+        members: members,
+      })
+      const groupSaved = await newGroup.save()
+      console.log(groupSaved, '<--- groupSaved')
+      if (!groupSaved) {
+        return res.status(400).send('Group not saved')
+      }
+      res.status(200).json(groupSaved)
+    } else {
+      res.status(200).json(groupFound)
+    }
+  } catch (error) {
+    console.error(error, '<--- ERROR')
+    return res.status(500).json({ msg: 'Something went wrong' })
   }
 }
 

@@ -9,12 +9,11 @@ const messageSchema = new mongoose.Schema(
       minlenght: 1,
       maxlenght: 25,
     },
-    sendUser: {
+    author: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
       required: true,
     },
-
     group: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Group',
@@ -34,6 +33,10 @@ const messageSchema = new mongoose.Schema(
     fileAtt: {
       type: String,
       trim: true,
+    },
+    time: {
+      type: Date,
+      required: true,
     },
   },
   {

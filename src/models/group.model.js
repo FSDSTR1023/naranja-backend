@@ -26,6 +26,10 @@ const groupSchema = new mongoose.Schema(
         ref: 'User',
       },
     ],
+    id: {
+      type: String,
+      required: true,
+    },
     deletedAt: {
       type: Date,
       default: null,
