@@ -14,6 +14,10 @@ const messageSchema = new mongoose.Schema(
       ref: 'User',
       required: true,
     },
+    authorName: {
+      type: String,
+      required: true,
+    },
     group: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Group',

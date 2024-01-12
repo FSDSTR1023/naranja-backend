@@ -56,13 +56,18 @@ const io = new Server(server, {
 io.on('connection', (socket) => {
   console.log(`a user connected ${socket.id} `)
 
-  socket.on('join-room', (roomId) => {
-    socket.join(roomId)
-    console.log(`user joined room: ${roomId} with id: ${socket.id}`)
+  socket.on('join-room', (room) => {
+    socket.join(room)
+    console.log(`user joined room: ${room} with id: ${socket.id}`)
   })
 
   socket.on('send-message', (data) => {
-    socket.to(data.roomId).emit('receive-message', data)
+    console.log(data, 'data')
+
+    socket.to(data.room).emit('receive-message', data.messageData)
+  })
+  socket.on('disconnect-user', (user) => {
+    socket.emit('user-disconnected', user)
   })
 
   socket.on('disconnect', () => {
