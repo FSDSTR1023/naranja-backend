@@ -66,8 +66,10 @@ io.on('connection', (socket) => {
 
     socket.to(data.room).emit('receive-message', data.messageData)
   })
+
   socket.on('disconnect-user', (user) => {
-    socket.emit('user-disconnected', user)
+    console.log('user disconnected', user)
+    socket.broadcast.emit('user-disconnected', user)
   })
 
   socket.on('disconnect', () => {

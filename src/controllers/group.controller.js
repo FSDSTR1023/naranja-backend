@@ -28,9 +28,8 @@ export const getGroupByIdOrCreate = async (req, res) => {
   const { groupId, name, description, ownerUser, members } = req.body
   try {
     const groupFound = await Group.findOne({ id: groupId }).populate('members')
-    console.log(groupFound, '<--- groupFound')
     if (!groupFound) {
-      const newGroup = await new Group({
+      const newGroup = new Group({
         id: groupId,
         name: name,
         description: description,
@@ -57,6 +56,7 @@ export const createNewGroup = async (req, res) => {
 
   try {
     const newGroup = await new Group({
+      id: Math.random().toString(36),
       name,
       description,
       ownerUser: ownerUser,
