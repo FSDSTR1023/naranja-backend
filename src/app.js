@@ -60,6 +60,10 @@ io.on('connection', (socket) => {
     socket.broadcast.emit('new-user-online', user)
   })
 
+  socket.on('user-status', () => {
+    socket.broadcast.emit('user-status-change')
+  })
+
   socket.on('join-room', (room) => {
     socket.join(room)
     console.log(`user joined room: ${room} with id: ${socket.id}`)
