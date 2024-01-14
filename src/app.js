@@ -56,6 +56,10 @@ const io = new Server(server, {
 io.on('connection', (socket) => {
   console.log(`a user connected ${socket.id} `)
 
+  socket.on('new-user', (user) => {
+    socket.broadcast.emit('new-user-online', user)
+  })
+
   socket.on('join-room', (room) => {
     socket.join(room)
     console.log(`user joined room: ${room} with id: ${socket.id}`)
