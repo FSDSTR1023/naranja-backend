@@ -1,23 +1,25 @@
 import Group from '../models/group.model.js'
 
 export const getAllGroups = async (req, res) => {
-  const { userId } = req.body
+  const { userId } = req.params
   console.log(req.body, '<--- req.body getAllGroups')
   try {
-    const groupsFound = await Group.find().populate('members')
+    const groupsFound = await Group.find({
+      members: { $in: [userId] },
+    }).populate('members')
 
     if (!groupsFound) {
       return res.status(400).send('Groups not found')
     }
-    const filteredGroupsByMember = groupsFound.filter((group) => {
-      return group.members.some((member) => member._id.toString() === userId)
-    })
-    console.log(filteredGroupsByMember, '<--- filteredGroupsByMember')
-    if (filteredGroupsByMember.length === 0) {
-      return res.status(400).send('Groups not found')
-    }
+    // const filteredGroupsByMember = groupsFound.filter((group) => {
+    //   return group.members.some((member) => member._id.toString() === userId)
+    // })
+    // console.log(filteredGroupsByMember, '<--- filteredGroupsByMember')
+    // if (filteredGroupsByMember.length === 0) {
+    //   return res.status(400).send('Groups not found')
+    // }
 
-    res.status(200).json(filteredGroupsByMember)
+    res.status(200).json(groupsFound)
   } catch (error) {
     console.error(error, '<--- ERROR')
     res.status(500).json({ msg: 'Internal server error' })
