@@ -26,6 +26,16 @@ const groupSchema = new mongoose.Schema(
         ref: 'User',
       },
     ],
+    lastMessage: {
+      type: String,
+      default: null,
+    },
+    hasLastMessage: {
+      type: Boolean,
+      default: false,
+      required: true,
+    },
+
     id: {
       type: String,
       required: true,

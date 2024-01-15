@@ -135,3 +135,29 @@ export const deleteMember = async (req, res) => {
     return res.status(500).json({ msg: 'Something went wrong' })
   }
 }
+
+export const updateLastMessage = async (req, res) => {
+  const { groupId } = req.params
+  console.log(groupId, '<--- groupId updateLastMessage')
+
+  console.log(req, '<--- req.body updateLastMessage')
+
+  try {
+    const groupFound = await Group.findByIdAndUpdate(
+      groupId,
+      {
+        lastMessage: 'aver si te actualizas asi',
+        hasLastMessage: true,
+      },
+      { new: true }
+    )
+
+    if (!groupFound) {
+      return res.status(400).send('Group not found')
+    }
+    res.status(200).json(groupFound)
+  } catch (error) {
+    console.log('[PATCH GROUP LAST MESSAGE ERROR]', error)
+    return res.status(500).json({ msg: 'Something went wrong' })
+  }
+}
