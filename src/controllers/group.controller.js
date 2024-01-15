@@ -11,13 +11,6 @@ export const getAllGroups = async (req, res) => {
     if (!groupsFound) {
       return res.status(400).send('Groups not found')
     }
-    // const filteredGroupsByMember = groupsFound.filter((group) => {
-    //   return group.members.some((member) => member._id.toString() === userId)
-    // })
-    // console.log(filteredGroupsByMember, '<--- filteredGroupsByMember')
-    // if (filteredGroupsByMember.length === 0) {
-    //   return res.status(400).send('Groups not found')
-    // }
 
     res.status(200).json(groupsFound)
   } catch (error) {
