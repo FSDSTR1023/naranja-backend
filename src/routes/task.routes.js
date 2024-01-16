@@ -7,8 +7,11 @@ import {
   markAsDeletedTask,
   cleanAllDeletedTasks,
 } from '../controllers/task.controller.js'
+import { authRequired } from '../middlewares/validateToken.js'
 
 const router = Router()
+
+router.use(authRequired)
 
 router.get('/', getAllTasks)
 

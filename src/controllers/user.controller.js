@@ -72,7 +72,14 @@ export const logInUser = async (req, res) => {
     if (!userFound.status) {
       return res.status(400).send('User not verified')
     }
-    const tokenAccess = await generateTokenAccess({ _id: userFound._id })
+    const tokenAccess = await generateTokenAccess({
+      _id: userFound._id,
+      name: userFound.name,
+      surname: userFound.surname,
+      email: userFound.email,
+      avatar: userFound.avatar,
+      isOnline: userFound.isOnline,
+    })
     res.cookie('token', tokenAccess)
     res.status(200).json(userFound)
   } catch (error) {

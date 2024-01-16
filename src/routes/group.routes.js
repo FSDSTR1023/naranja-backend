@@ -9,9 +9,10 @@ import {
   getGroupByIdOrCreate,
   updateLastMessage,
 } from '../controllers/group.controller.js'
+import { authRequired } from '../middlewares/validateToken.js'
 
 const router = Router()
-
+router.use(authRequired)
 // Use GET for retrieving all groups??
 router.get('/groups/:userId', getAllGroups)
 

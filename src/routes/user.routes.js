@@ -8,14 +8,17 @@ import {
   editUserPassword,
   getAllUsers,
 } from '../controllers/user.controller.js'
+import { authRequired } from '../middlewares/validateToken.js'
 
 const router = Router()
 
 router.post('/register', registerUser)
 
+router.post('/user/verify/:token', verifyUser)
+
 router.post('/login', logInUser)
 
-router.post('/user/verify/:token', verifyUser)
+router.use(authRequired)
 
 router.patch('/logout', logOutUser)
 
