@@ -6,11 +6,14 @@ export const getAllGroups = async (req, res) => {
   try {
     const groupsFound = await Group.find({
       members: { $in: [userId] },
-    }).populate('members')
+    })
+      .populate('members')
+      .populate('lastMessage')
 
     if (!groupsFound) {
       return res.status(400).send('Groups not found')
     }
+    console.log(groupsFound, '<--- groupsFound')
 
     res.status(200).json(groupsFound)
   } catch (error) {
@@ -140,13 +143,14 @@ export const updateLastMessage = async (req, res) => {
   const { groupId } = req.params
   console.log(groupId, '<--- groupId updateLastMessage')
 
-  console.log(req, '<--- req.body updateLastMessage')
+  const { messageBody } = req.body
+  console.log(messageBody, '<--- messageBody updateLastMessage')
 
   try {
     const groupFound = await Group.findByIdAndUpdate(
       groupId,
       {
-        lastMessage: 'aver si te actualizas asi',
+        lastMessage: messageBody,
         hasLastMessage: true,
       },
       { new: true }
