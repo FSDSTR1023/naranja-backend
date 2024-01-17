@@ -7,6 +7,7 @@ import {
   editProfileUser,
   editUserPassword,
   getAllUsers,
+  logInWithToken,
 } from '../controllers/user.controller.js'
 import { authRequired } from '../middlewares/validateToken.js'
 
@@ -20,7 +21,9 @@ router.post('/login', logInUser)
 
 router.use(authRequired)
 
-router.patch('/logout', logOutUser)
+router.get('/user/logInWithToken', logInWithToken)
+
+router.post('/logout', logOutUser)
 
 router.put('/user/update', editProfileUser)
 

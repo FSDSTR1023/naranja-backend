@@ -80,7 +80,9 @@ export const logInUser = async (req, res) => {
       avatar: userFound.avatar,
       isOnline: userFound.isOnline,
     })
-    res.cookie('token', tokenAccess)
+    res.cookie('token', tokenAccess, {
+      httpOnly: true,
+    })
     res.status(200).json(userFound)
   } catch (error) {
     console.error(error, '<--- ERROR')
@@ -88,7 +90,8 @@ export const logInUser = async (req, res) => {
 }
 
 export const logOutUser = async (req, res) => {
-  const { _id } = req.body
+  const { _id } = req.user
+  console.log(req.user, '<--- req.body')
   try {
     const userFound = await User.findByIdAndUpdate(
       { _id },
@@ -96,7 +99,7 @@ export const logOutUser = async (req, res) => {
     )
     console.log(userFound, '<--- userFound')
     res.clearCookie('token')
-    res.status(200).json({ msg: 'User logged out' })
+    res.status(200).json({ msg: 'User logout' })
   } catch (error) {
     console.error(error, '<--- ERROR')
   }
@@ -151,4 +154,17 @@ export const editUserPassword = async (req, res) => {
   }
 }
 
-// <--- Nos falta verificar el token despues de hacer el login
+export const logInWithToken = async (req, res) => {
+  const { _id } = req.user
+  console.log(req.user, '<--- req.user')
+  try {
+    const userFound = await User.findById(_id)
+    if (!userFound) {
+      return res.status(400).send('User not found')
+    }
+    res.status(200).json(userFound)
+  } catch (error) {
+    console.error(error, '[LOG IN WITH TOKEN ERROR]')
+    res.status(400).send('token invalido')
+  }
+}
