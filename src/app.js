@@ -76,7 +76,7 @@ io.on('connection', (socket) => {
   })
 
   socket.on('disconnect-user', (user) => {
-    console.log('user disconnected', user)
+    console.log('ESTE USUARIO SE HA DESCONECTADO', user)
     socket.broadcast.emit('user-disconnected', user)
   })
 

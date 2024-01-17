@@ -97,7 +97,7 @@ export const logOutUser = async (req, res) => {
       { _id },
       { isOnline: 'offline' }
     )
-    console.log(userFound, '<--- userFound')
+
     res.clearCookie('token')
     res.status(200).json({ msg: 'User logout' })
   } catch (error) {
@@ -107,6 +107,7 @@ export const logOutUser = async (req, res) => {
 
 export const editProfileUser = async (req, res) => {
   const { _id, role, avatar, isOnline } = req.body
+  console.log(req.body, '<--- req.body')
 
   try {
     const userUpdate = await User.findByIdAndUpdate(
