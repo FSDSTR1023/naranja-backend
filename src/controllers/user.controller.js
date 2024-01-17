@@ -91,7 +91,7 @@ export const logInUser = async (req, res) => {
 
 export const logOutUser = async (req, res) => {
   const { _id } = req.user
-  console.log(req.user, '<--- req.body')
+
   try {
     const userFound = await User.findByIdAndUpdate(
       { _id },
