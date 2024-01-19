@@ -165,3 +165,17 @@ export const updateLastMessage = async (req, res) => {
     return res.status(500).json({ msg: 'Something went wrong' })
   }
 }
+
+export const getCurrentGroup = async (req, res) => {
+  const { groupId } = req.params
+  try {
+    const groupFound = await Group.findOne({ _id: groupId }).populate('members')
+    if (!groupFound) {
+      return res.status(400).send('Group not saved')
+    }
+    res.status(200).json(groupFound)
+  } catch (error) {
+    console.error(error, '<--- ERROR')
+    return res.status(500).json({ msg: 'Something went wrong' })
+  }
+}

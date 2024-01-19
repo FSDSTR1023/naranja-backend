@@ -8,6 +8,7 @@ import {
   deleteGroup,
   getGroupByIdOrCreate,
   updateLastMessage,
+  getCurrentGroup,
 } from '../controllers/group.controller.js'
 import { authRequired } from '../middlewares/validateToken.js'
 
@@ -27,5 +28,7 @@ router.delete('/:id', deleteGroup)
 router.post('/group', getGroupByIdOrCreate)
 
 router.patch('/group/lastMessage/:groupId', updateLastMessage)
+
+router.get('/currentGroup/:groupId', getCurrentGroup)
 
 export default router
