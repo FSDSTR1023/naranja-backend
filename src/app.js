@@ -11,6 +11,8 @@ import groupRoutes from './routes/group.routes.js'
 import messageRoutes from './routes/message.routes.js'
 import { Server } from 'socket.io'
 
+import { videoRequest } from './controllers/video.controller.js'
+
 const port = process.env.PORT || 4000
 const app = express()
 app.use(morgan('dev'))
@@ -35,6 +37,7 @@ app.use('/', userRoutes)
 app.use('/task', taskRoutes)
 app.use('/group', groupRoutes)
 app.use('/messages', messageRoutes)
+app.get('/video/:room&:username', videoRequest)
 
 app.get('/helper', (req, res) => {
   res.status(200).send('helper')
