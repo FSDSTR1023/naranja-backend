@@ -43,7 +43,7 @@ export async function sendEmailVerification(email, tokenAccess) {
   return await transporter.sendMail({
     from: process.env.EMAIL_USER,
     to: email,
-    subject: 'Email Verification from Task-Messenger-App',
+    subject: 'Verificación de tu cuenta de TaskTalk',
     html: createVerificationEmail(tokenAccess),
   })
 }
@@ -53,26 +53,54 @@ export const createVerificationEmail = (tokenAccess) => {
   <!DOCTYPE html>
   <html lang="es">
     <style>
-      html{
-        background-color: white;
-      }
-      body{
-        max-width: 600px;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        margin: auto;
-        background-color: rgb(229, 255, 246);
-        padding: 40px;
-        border-radius: 4px;
-        margin-top: 10px;
-      }
+    html {
+      background-color: #ffffff; 
+    }
+
+    body {
+      max-width: 600px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: auto;
+      background-color: #17415f; 
+      color: #ffffff; 
+      padding: 40px;
+      border-radius: 4px;
+      margin-top: 10px;
+    }
+
+    h1 {
+      color: #ff8c00; 
+      margin-bottom: 20px;
+    }
+
+    p {
+      margin-bottom: 15px;
+    }
+
+    a {
+      color: white; 
+      text-decoration: none;
+      font-style: italic;
+      font-weight: bold;
+    }
+
+    a:hover {
+      text-decoration: underline
+    }
+
+    strong {
+      color: #ff8c00; 
+    }
+.firma{
+  font-weight: bold;
+  color: #ff8c00;
+}
     </style>
-  <body>
-    <h1>Verificación de correo electrónico -  Tasktalk-APP</h1>
-    <p>Se ha creado una cuenta en Task messenger-App con este correo electrónico.</p>
-      <p>Si esta cuenta no fue creada por usted, desestime este correo.</p>
-      <p></p>Si usted creó la cuenta, entonces verifique la cuenta <a href="http://localhost:5173/verify/${tokenAccess}" target="_blank" rel="noopener noreferrer">haciendo click aquí</a>.</p>
-      <p><strong>Admin</strong></p>
-      <p>CEO Tasktalk-APP</p>
+    <body>
+    <h1>Verificando su cuenta de TaskTalk</h1>
+    <p>Se ha creado una cuenta en TaskTalk con este correo electrónico, si usted no ha creado la cuenta, desestime este correo, si usted la creo, entonces verifíquela<a href="http://localhost:5173/verify/${tokenAccess}" target="_blank" rel="noopener noreferrer"> haciendo click en este link</a>. Será redirigido automáticamente al inicio de sesión.</p>
+    <br/>
+    <p class='firma'>Equipo de TaskTalk.</p>
   </body>
   </html>`
 }
@@ -81,7 +109,7 @@ export async function sendNewPassword(email, password) {
   return await transporter.sendMail({
     from: process.env.EMAIL_USER,
     to: email,
-    subject: 'Email Verification from Task-Messenger-App',
+    subject: 'Nueva contraseña de TaskTalk',
     html: createChangePassword(password),
   })
 }
@@ -90,27 +118,57 @@ export const createChangePassword = (password) => {
   return `
   <!DOCTYPE html>
   <html lang="es">
-    <style>
-      html{
-        background-color: white;
-      }
-      body{
-        max-width: 600px;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        margin: auto;
-        background-color: rgb(229, 255, 246);
-        padding: 40px;
-        border-radius: 4px;
-        margin-top: 10px;
-      }
-    </style>
-  <body>
-    <h1>Tu nueva Contraseña -  Tasktalk-APP</h1>
-    <p>Si ha cambiado la contraseña de su cuenta en Task messenger-App.</p>
-      <p>${password}</p>
-      <p></p>Vuelve a tu Login <a href="http://localhost:5173/login-page" target="_blank" rel="noopener noreferrer">haciendo click aquí</a>.</p>
-      <p><strong>Admin</strong></p>
-      <p>CEO Tasktalk-APP</p>
+  <style>
+  html {
+    background-color: #ffffff;
+  }
+
+  body {
+    max-width: 600px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: auto;
+    background-color: rgb(229, 255, 246);
+    padding: 40px;
+    border-radius: 4px;
+    margin-top: 10px;
+  }
+
+  h1 {
+    color: #17415f;
+    margin-bottom: 20px;
+  }
+
+  p {
+    margin-bottom: 15px;
+    color: #17415f;
+  }
+
+  a {
+    color: #17415f;
+    text-decoration: none;
+    font-style: italic;
+    font-weight: bold;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  strong {
+    color: #17415f;
+  }
+
+  .firma {
+    font-weight: bold;
+    color: #ff8c00;
+  }
+</style>
+    <body>
+    <h1>Tu nueva contraseña de TaskTalk</h1>
+    <p>Esta es tu nueva contraseña para acceder a TaskTalk:${password} , una vez hayas accedido de nuevo, puedes cambiarla en cualquier momento desde la página de tu perfil.</p>
+    <p>Vuelve al inicio de sesión <a href="http://localhost:5173/login-page" target="_blank" rel="noopener noreferrer">haciendo clic aquí</a>.</p>
+    <br/>
+      <p class='firma'>Equipo de TaskTalk.</p>
   </body>
   </html>`
 }
