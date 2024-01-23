@@ -2,7 +2,6 @@ import Task from '../models/task.model.js'
 
 export const getAllTasks = async (req, res) => {
   const { groupId } = req.params
-  console.log(groupId, '<--- groupId from getAllTasks controller')
 
   try {
     const findTasks = await Task.find({ group: groupId })
@@ -11,7 +10,6 @@ export const getAllTasks = async (req, res) => {
     }
     res.status(200).json(findTasks)
   } catch (error) {
-    console.error(error, '<--- ERROR')
     return res.status(500).json({ msg: 'Internal server error' })
   }
 }
@@ -19,7 +17,6 @@ export const getAllTasks = async (req, res) => {
 export const createNewTask = async (req, res) => {
   const { id, title, groupId, userId, items } = req.body
   try {
-    console.log('[CREANDO TAREA]')
     const newTask = await new Task({
       id: id,
       title: title,
@@ -27,7 +24,7 @@ export const createNewTask = async (req, res) => {
       user: userId,
       items: items,
     })
-    console.log(newTask, '<--- newTask from createNewTask controller')
+
     const taskSaved = await newTask.save()
     if (!taskSaved) {
       // <--- una validacion
@@ -43,7 +40,6 @@ export const createNewTask = async (req, res) => {
 
 export const editTask = async (req, res) => {
   const { groupId } = req.params
-  console.log(req.body, '<--- req.body from editTask controller')
 
   try {
     const taskFound = await Task.findOneAndUpdate(
@@ -56,7 +52,6 @@ export const editTask = async (req, res) => {
     }
     res.status(200).json(taskFound)
   } catch (error) {
-    console.error(error, '<--- ERROR')
     return res.status(500).json({ msg: 'Internal server error' })
   }
 }
@@ -69,13 +64,11 @@ export const markAsDeletedTask = async (req, res) => {
       return res.status(400).send('Task not found')
     }
     deletedTask.deletedAt = Date.now()
-    console.log(deletedTask, '<--- deletedTask from deleteTask controller')
 
     const deletedTaskMod = await deletedTask.save()
 
     res.status(200).json(deletedTaskMod)
   } catch (error) {
-    console.error(error, '<--- ERROR')
     return res.status(500).json({ msg: 'Internal server error' })
   }
 }
@@ -91,7 +84,6 @@ export const cleanAllDeletedTasks = async (req, res) => {
     })
     res.status(200).json(deletedTasksCleaned)
   } catch (error) {
-    console.error(error, '<--- ERROR')
     return res.status(500).json({ msg: 'Internal server error' })
   }
 }
@@ -103,13 +95,11 @@ export const recoverDeletedTask = async (req, res) => {
       return res.status(400).send('Task not found')
     }
     deletedTask.deletedAt = null
-    console.log(deletedTask, '<--- deletedTask from deleteTask controller')
 
     const deletedTaskMod = await deletedTask.save()
 
     res.status(200).json(deletedTaskMod)
   } catch (error) {
-    console.error(error, '<--- ERROR')
     return res.status(500).json({ msg: 'Internal server error' })
   }
 }
@@ -124,7 +114,6 @@ export const deleteTask = async (req, res) => {
     }
     res.status(200).json({ msg: 'Task deleted' })
   } catch (error) {
-    console.error(error, '<--- ERROR')
     return res.status(500).json({ msg: 'Internal server error' })
   }
 }
@@ -148,15 +137,12 @@ export const updateManyTasks = async (req, res) => {
     }
     res.status(200).json({ msg: 'Tasks updated' })
   } catch (error) {
-    console.error(error, '<--- ERROR')
     return res.status(500).json({ msg: 'Internal server error' })
   }
 }
 export const updateTitleTask = async (req, res) => {
   const { containerId } = req.params
   const { title } = req.body
-  console.log(title, '<--- title from updateTitleTask controller')
-  console.log(containerId, '<--- containerId from updateTitleTask controller')
 
   try {
     const taskFound = await Task.findOneAndUpdate(
@@ -169,7 +155,6 @@ export const updateTitleTask = async (req, res) => {
     }
     res.status(200).json({ msg: 'Task updated' })
   } catch (error) {
-    console.error(error, '<--- ERROR')
     return res.status(500).json({ msg: 'Internal server error' })
   }
 }

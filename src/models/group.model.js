@@ -15,6 +15,7 @@ const groupSchema = new mongoose.Schema(
       trim: true,
       minlenght: 3,
       maxlenght: 250,
+      default: 'chat-de-grupo',
     },
     ownerUser: {
       type: mongoose.Schema.Types.ObjectId,
