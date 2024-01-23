@@ -3,9 +3,11 @@ import {
   getAllTasks,
   createNewTask,
   editTask,
-  recoverDeletedTask,
+  deleteTask,
   markAsDeletedTask,
   cleanAllDeletedTasks,
+  updateManyTasks,
+  updateTitleTask,
 } from '../controllers/task.controller.js'
 import { authRequired } from '../middlewares/validateToken.js'
 
@@ -13,16 +15,20 @@ const router = Router()
 
 router.use(authRequired)
 
-router.get('/', getAllTasks)
+router.get('/:groupId', getAllTasks)
 
-router.put('/deleted/:id', recoverDeletedTask)
+router.delete('/deleted/:id', deleteTask)
 
-router.put('/:id', editTask)
+router.put('/:groupId', editTask)
 
-router.post('/', createNewTask)
+router.post('/newTask', createNewTask)
 
 router.delete('/deleted-all', cleanAllDeletedTasks)
 
 router.patch('/:id', markAsDeletedTask)
+
+router.post('/updateMany/:groupId', updateManyTasks)
+
+router.put('/updateTitle/:containerId', updateTitleTask)
 
 export default router
