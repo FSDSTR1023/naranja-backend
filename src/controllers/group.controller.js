@@ -173,6 +173,7 @@ export const getCurrentGroup = async (req, res) => {
     if (!groupFound) {
       return res.status(400).send('Group not saved')
     }
+
     res.status(200).json(groupFound)
   } catch (error) {
     console.error(error, '<--- ERROR')
