@@ -72,13 +72,21 @@ export const createNewGroup = async (req, res) => {
 }
 
 export const editGroup = async (req, res) => {
-  const { name, description, members } = req.body
+  const { name, description } = req.body.group
+  const member = req.body.contact._id
+  console.log(member, '<--- member**************')
+  console.log(name, description, '<--- name, description*************')
+
   try {
     const groupFound = await Group.findById(req.params.id)
     if (!groupFound) {
       return res.status(400).send('Group not found')
     }
-    const newMembers = [...groupFound.members, ...members]
+    if (groupFound.members.includes(member)) {
+      return res.status(400).send('Member already in group')
+    }
+    const newMembers = [...groupFound.members, member]
+    console.log(newMembers, '<--- newMembers*************')
 
     const groupUpdated = await Group.findByIdAndUpdate(
       req.params.id,
@@ -89,6 +97,7 @@ export const editGroup = async (req, res) => {
       },
       { new: true }
     )
+    console.log(groupUpdated, '<--- groupUpdated*************')
     if (!groupUpdated) {
       return res.status(400).send('Group not updated')
     }
@@ -113,15 +122,17 @@ export const deleteGroup = async (req, res) => {
 }
 
 export const deleteMember = async (req, res) => {
-  const { members } = req.body
+  const { _id } = req.body.user
+
   try {
     const modifyGroup = await Group.findById(req.params.id)
     if (!modifyGroup) {
       return res.status(400).send('Group not found')
     }
     const newMembers = modifyGroup.members.filter(
-      (member) => member !== members
+      (memberId) => memberId.toString() !== _id
     )
+    console.log(newMembers, '<--- newMembers*************')
     const groupUpdated = await Group.findByIdAndUpdate(
       req.params.id,
       {
