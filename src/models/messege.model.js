@@ -6,8 +6,7 @@ const messageSchema = new mongoose.Schema(
       type: String,
       required: true,
       trim: true,
-      minlenght: 1,
-      maxlenght: 25,
+      maxlenght: 50,
     },
     author: {
       type: mongoose.Schema.Types.ObjectId,
@@ -22,8 +21,12 @@ const messageSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Group',
     },
-    deletedAt: {
-      type: Date,
+    isDeleted: {
+      type: Boolean,
+      default: null,
+    },
+    isEdited: {
+      type: Boolean,
       default: null,
     },
     image: {

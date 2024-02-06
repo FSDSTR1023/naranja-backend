@@ -40,3 +40,41 @@ export const getAllMessagesByGroupId = async (req, res) => {
     return res.status(500).json({ msg: 'Something went wrong' })
   }
 }
+
+export const editMessageById = async (req, res) => {
+  const { body, isEdited } = req.body.message
+  try {
+    const messageFound = await Message.findById(req.params.id)
+    if (!messageFound) {
+      return res.status(400).json({ msg: 'Message not found' })
+    }
+    messageFound.body = body
+    messageFound.isEdited = isEdited
+    const messageSaved = await messageFound.save()
+    if (!messageSaved) {
+      return res.status(400).json({ msg: 'Message not saved' })
+    }
+    res.status(200).json(messageSaved)
+  } catch (error) {
+    console.error(error, '[EDIT_MESSAGE]<--- ERROR')
+    return res.status(500).json({ msg: 'Something went wrong' })
+  }
+}
+
+export const deleteMessageById = async (req, res) => {
+  try {
+    const messageFound = await Message.findById(req.params.id)
+    if (!messageFound) {
+      return res.status(400).json({ msg: 'Message not found' })
+    }
+    messageFound.isDeleted = true
+    const messageSaved = await messageFound.save()
+    if (!messageSaved) {
+      return res.status(400).json({ msg: 'Message not saved' })
+    }
+    res.status(200).json(messageSaved)
+  } catch (error) {
+    console.error(error, '[DELETE_MESSAGE]<--- ERROR')
+    return res.status(500).json({ msg: 'Something went wrong' })
+  }
+}
