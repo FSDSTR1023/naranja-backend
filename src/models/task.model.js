@@ -35,7 +35,6 @@ const taskSchema = new mongoose.Schema(
         },
         description: {
           type: String,
-
           trim: true,
         },
         imageAt: {
