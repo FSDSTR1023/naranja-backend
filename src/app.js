@@ -12,6 +12,7 @@ import messageRoutes from './routes/message.routes.js'
 import { Server } from 'socket.io'
 
 import { videoRequest } from './controllers/video.controller.js'
+import { changeStatusUser } from './services/user.service.js'
 
 const port = process.env.PORT || 4000
 const app = express()
@@ -78,9 +79,10 @@ io.on('connection', (socket) => {
     socket.to(data.room).emit('receive-message', data.messageData)
   })
 
-  socket.on('disconnect-user', (user) => {
+  socket.on('disconnect-user', async (user) => {
     socket.broadcast.emit('user-disconnected', user)
-    console.log('ESTE USUARIO SE HA DESCONECTADO', user)
+    const respUser = await changeStatusUser(user)
+    console.log('ESTE USUARIO SE HA DESCONECTADO', respUser)
   })
 
   socket.on('disconnect', () => {
