@@ -8,6 +8,7 @@ import {
   cleanAllDeletedTasks,
   updateManyTasks,
   updateTitleTask,
+  updateTaskInfo,
 } from '../controllers/task.controller.js'
 import { authRequired } from '../middlewares/validateToken.js'
 
@@ -30,5 +31,7 @@ router.patch('/:id', markAsDeletedTask)
 router.post('/updateMany/:groupId', updateManyTasks)
 
 router.put('/updateTitle/:containerId', updateTitleTask)
+
+router.put('/updateTaskInfo/:containerId', updateTaskInfo)
 
 export default router

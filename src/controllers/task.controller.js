@@ -5,6 +5,11 @@ export const getAllTasks = async (req, res) => {
 
   try {
     const findTasks = await Task.find({ group: groupId })
+      .populate('user')
+      .populate('group')
+      .populate('items.assignedTo')
+      .populate('items.followers')
+    console.log(findTasks, '<--- findTasks from getAllTasks controller')
     if (!findTasks) {
       return res.status(400).send('Tasks not found')
     }
@@ -153,6 +158,53 @@ export const updateTitleTask = async (req, res) => {
     if (!taskFound) {
       return res.status(400).send('Task not found')
     }
+    res.status(200).json({ msg: 'Task updated' })
+  } catch (error) {
+    return res.status(500).json({ msg: 'Internal server error' })
+  }
+}
+
+export const updateTaskInfo = async (req, res) => {
+  const { containerId } = req.params
+
+  console.log(req.body)
+  const { _id } = req.body
+  console.log(req.body, '<--- req.Body from updateTaskInfo controller')
+
+  try {
+    const taskFound = await Task.findOne({ id: containerId })
+
+    if (!taskFound) {
+      return res.status(400).send('Task not found')
+    }
+    const taskToEdit = taskFound.items.filter(
+      (item) => item._id.toString() === _id
+    )
+    const index = taskFound.items.indexOf(taskToEdit[0])
+    console.log(taskToEdit, '<--- taskToEdit from updateTaskInfo controller')
+    console.log(index, '<--- index from updateTaskInfo controller')
+
+    taskToEdit[0] = req.body
+    taskFound.items[index] = taskToEdit[0]
+    console.log(
+      taskFound.items,
+      '<--- taskFound.items from updateTaskInfo controller'
+    )
+    const containerUpdated = await Task.findOneAndUpdate(
+      { id: containerId },
+      { items: taskFound.items },
+      {
+        new: true,
+      }
+    )
+    console.log(
+      containerUpdated,
+      '<--- containerUpdated from updateTaskInfo controller'
+    )
+    if (!containerUpdated) {
+      return res.status(400).send('Task not found')
+    }
+
     res.status(200).json({ msg: 'Task updated' })
   } catch (error) {
     return res.status(500).json({ msg: 'Internal server error' })

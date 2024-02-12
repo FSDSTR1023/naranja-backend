@@ -37,10 +37,6 @@ const taskSchema = new mongoose.Schema(
           type: String,
           trim: true,
         },
-        imageAt: {
-          type: String,
-          trim: true,
-        },
 
         fileAt: {
           type: String,
@@ -53,6 +49,20 @@ const taskSchema = new mongoose.Schema(
         dateEnd: {
           type: Date,
         },
+        isCompleted: {
+          type: Boolean,
+          default: false,
+        },
+        assignedTo: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'User',
+        },
+        followers: [
+          {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
+          },
+        ],
       },
     ],
   },
