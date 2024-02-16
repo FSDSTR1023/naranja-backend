@@ -22,9 +22,9 @@ app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }))
 app.use(cookieParser())
 
 const allowedOrigins = [
+  'https://naranja-team-tasktalk.netlify.app',
   'http://localhost:5173',
   'http://127.0.0.1:5173',
-  'https://naranja-team-tasktalk.netlify.app',
 ]
 const corsOptions = {
   origin: function (origin, callback) {
