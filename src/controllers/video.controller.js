@@ -1,4 +1,5 @@
 import { AccessToken } from 'livekit-server-sdk'
+import 'dotenv/config'
 
 export const videoRequest = (req, res) => {
   const { room, username } = req.params
