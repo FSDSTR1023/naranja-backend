@@ -101,8 +101,7 @@ export const logOutUser = async (req, res) => {
       { isOnline: 'offline' }
     )
 
-    res.clearCookie('token')
-    res.status(200).json({ msg: 'User logout' })
+    res.status(200).clearCookie('token').json({ msg: 'User logout' })
   } catch (error) {
     console.error(error, '<--- ERROR')
   }
