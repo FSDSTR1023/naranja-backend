@@ -1,6 +1,10 @@
 import { AccessToken } from 'livekit-server-sdk'
 import 'dotenv/config'
 
+const apiKey = process.env.LIVEKIT_API_KEY
+const apiSecret = process.env.LIVEKIT_API_SECRET
+const wsUrl = process.env.PUBLIC_LIVEKIT_URL
+
 export const videoRequest = (req, res) => {
   const { room, username } = req.params
   console.log('room', room)
@@ -11,10 +15,6 @@ export const videoRequest = (req, res) => {
   } else if (!username) {
     res.json({ error: 'Missing "username" query parameter' }, { status: 400 })
   }
-
-  const apiKey = process.env.LIVEKIT_API_KEY
-  const apiSecret = process.env.LIVEKIT_API_SECRET
-  const wsUrl = process.env.PUBLIC_LIVEKIT_URL
 
   if (!apiKey || !apiSecret || !wsUrl) {
     res.json({ error: 'Server misconfigured' }, { status: 500 })
