@@ -1,4 +1,5 @@
 import Task from '../models/task.model.js'
+import { sendNewNotification } from '../services/mailing.js'
 
 export const getAllTasks = async (req, res) => {
   const { groupId } = req.params
@@ -208,5 +209,16 @@ export const updateTaskInfo = async (req, res) => {
     res.status(200).json({ msg: 'Task updated' })
   } catch (error) {
     return res.status(500).json({ msg: 'Internal server error' })
+  }
+}
+
+export const sendNotificationEmail = async (req, res) => {
+  const { email, task, groupName } = req.body
+  try {
+    sendNewNotification(email, task, groupName)
+    res.status(200).json({ msg: 'Email sent' })
+  } catch (error) {
+    console.error(error, '[ERROR NOTIFICATION EMAIL]')
+    res.status(400).send('Somthing went wrong')
   }
 }

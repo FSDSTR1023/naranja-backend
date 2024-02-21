@@ -9,6 +9,7 @@ import {
   updateManyTasks,
   updateTitleTask,
   updateTaskInfo,
+  sendNotificationEmail,
 } from '../controllers/task.controller.js'
 import { authRequired } from '../middlewares/validateToken.js'
 
@@ -33,5 +34,7 @@ router.post('/updateMany/:groupId', updateManyTasks)
 router.put('/updateTitle/:containerId', updateTitleTask)
 
 router.put('/updateTaskInfo/:containerId', updateTaskInfo)
+
+router.post('/assignedTo/sendNotification', sendNotificationEmail)
 
 export default router
