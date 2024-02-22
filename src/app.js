@@ -72,6 +72,11 @@ io.on('connection', (socket) => {
     socket.broadcast.emit('user-status-change')
   })
 
+  socket.on('userWriting', (data) => {
+    console.log(data, 'userWriting')
+    socket.to(data.room).emit('user-writing', data)
+  })
+
   socket.on('join-room', (room) => {
     socket.join(room)
     console.log(`user joined room: ${room} with id: ${socket.id}`)
